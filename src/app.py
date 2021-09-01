@@ -1,15 +1,15 @@
 from flask import Flask, jsonify, request
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo, ObjectId
 from flask_cors import CORS
 
-from bson import ObjectId
+
 
 # Instantiation
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost/pythonreact'
 mongo = PyMongo(app)
 
-# Settings
+# Settings para que se comunique con el servidor de React luego
 CORS(app)
 
 # Database
@@ -24,6 +24,7 @@ def createUser():
     'email': request.json['email'],
     'password': request.json['password']
   })
+  print(str(ObjectId(id)))
   return jsonify(str(ObjectId(id)))
 
 
